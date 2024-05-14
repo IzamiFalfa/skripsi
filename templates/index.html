@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Your Image</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h2>Upload Your Image</h2>
+    <div class="upload-files">
+        <form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+            <label class="upload-label" for="file-picker">Choose Image</label>
+            <input class="upload-file" id="file-picker" type="file" name="file" accept="image/*" multiple hidden>
+            <div id="msg"></div>
+            <input class="upload-name button-style" type="submit" value="Upload Image" id="upload-button">
+        </form>
+        <video id="camera-stream" width="300" height="200"></video>
+        <button id="capture-button" class="button-style">Capture</button>
+        <canvas id="canvas" style="display:none;"></canvas>
+        <!-- <img id="captured-image" style="display:none;"> -->
+        <div class="capture-container">
+            <img id="captured-image" style="display:none;">
+            <!-- Gambar dan tombol Cancel akan ditambahkan di sini -->
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    const filePicker = document.getElementById('file-picker');
+    const cameraStream = document.getElementById('camera-stream');
+    const captureButton = document.getElementById('capture-button');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    let stream = null;
+
+    function handleFiles(files) {
+        var ext = files.name.substring(files.name.lastIndexOf('.') + 1).toLowerCase();
+        if ((ext === 'jpg') || (ext === 'png') || (ext === 'jpeg')) {
+            $("#msg").text("File is supported");
+        } else {
+            $("#msg").text("File is NOT supported");
+            filePicker.value = ""; // Clear the input
+        }
+    }
+
+    captureButton.onclick = function() {
+        canvas.width = cameraStream.videoWidth;
+        canvas.height = cameraStream.videoHeight;
+        context.drawImage(cameraStream, 0, 0);
+        canvas.toBlob(function(blob) {
+            const file = new File([blob], "captured_image.jpg", {type: "image/jpeg", lastModified: new Date().getTime()});
+            handleFiles(file);
+            filePicker.files = createFileList(file);
+
+            const captureContainer = document.querySelector('.capture-container');
+            const capturedImage = document.getElementById('captured-image');
+            capturedImage.src = URL.createObjectURL(blob);
+            capturedImage.style.display = 'block';
+            captureContainer.appendChild(capturedImage);
+
+            const cancelButton = document.createElement('button');
+            cancelButton.textContent = 'Cancel';
+            cancelButton.classList.add('button-style');
+            cancelButton.onclick = function() {
+                capturedImage.style.display = 'none';
+                capturedImage.src = '';
+                cancelButton.remove();
+                $("#msg").text("");
+                cameraStream.style.display = 'block';
+                captureButton.style.display = 'block';
+                captureButton.classList.add('centered'); // Tambahkan kelas .centered
+
+                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
+                        .then(function(localStream) {
+                            stream = localStream;
+                            cameraStream.srcObject = stream;
+                            cameraStream.play();
+                        })
+                        .catch(function(err) {
+                            console.log("An error occurred: " + err);
+                        });
+                }
+            };
+            captureContainer.appendChild(cancelButton);
+
+            cameraStream.style.display = 'none';
+            captureButton.style.display = 'none';
+            stream.getTracks().forEach(track => track.stop());
+        });
+    };
+
+    // Utility to simulate a FileList object as it's read-only
+    function createFileList(...files) {
+        const dataTransfer = new DataTransfer();
+        files.forEach(file => dataTransfer.items.add(file));
+        return dataTransfer.files;
+    }
+
+    $("#file-picker").change(function(){
+        const files = this.files[0];
+        if (files) {
+            handleFiles(files);
+        }
+    });
+
+    window.onload = function() {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
+                .then(function(localStream) {
+                    stream = localStream;
+                    cameraStream.srcObject = stream;
+                    cameraStream.play();
+                    captureButton.classList.add('centered'); // Tambahkan kelas .centered
+                })
+                .catch(function(err) {
+                    console.log("An error occurred: " + err);
+                });
+        }
+    };
+</script>
+</body>
+</html>

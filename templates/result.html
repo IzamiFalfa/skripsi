@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Upload Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .image-container img {
+            max-width: 50%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Image Upload Result</h2>
+    <div class="image-container">
+        <div class="original-image">
+            <h3>Original Image</h3>
+            <img src="{{ url_for('original_image', filename_ori=original_image_name) }}" alt="Original Image">
+        </div>
+        <div class="processed-image">
+            <h3>Processed Image</h3>
+            <img src="{{ url_for('predicted_image', filename_pred=predicted_image_name) }}" alt="Processed Image">
+        </div>
+    </div>
+</div>
+</body>
+</html>
