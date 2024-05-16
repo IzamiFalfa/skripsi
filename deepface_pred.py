@@ -29,9 +29,6 @@ for result in results:
     known_faces.append(image)
     known_face_names.append(result[1])
 
-
-# print(known_faces)
-# print(type(known_faces[0]))
 # Mendefinisikan fungsi untuk melakukan verifikasi menggunakan VGG-Face
 def predict(img_path):
     image = cv2.imread(img_path)
@@ -71,15 +68,3 @@ def predict(img_path):
     
     return image,name
 
-
-# hasil,name = vgg("./db-test/Fahmi.jpg")
-# print(name)
-
-# # Display the image
-# cv2.imshow("Image", hasil)
- 
-# # Wait for the user to press a key
-# cv2.waitKey(0)
- 
-# # Close all windows
-# cv2.destroyAllWindows()
