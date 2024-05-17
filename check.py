@@ -31,15 +31,16 @@ def absen(name):
             results.append("push")
         for result in results:
             if result[0] == name:
-                print("Nama tersebut sudah absen")
-            else:
                 waktu = datetime.now()
-                sql = "INSERT INTO absen (name, waktu_absen) VALUES (%s, %s)"
-                val = (name, waktu)
+                sql = "UPDATE absen SET absen = %s, waktu_absen = %s WHERE name = %s"
+                val = ("Sudah", waktu, name)
                 cursor.execute(sql, val)
                 print("absen berhasil")
     else:
         print("kemarin")
-        cursor.execute("DELETE FROM absen")
+        sql = "UPDATE absen SET absen = %s, waktu_absen = %s"
+        val = ("Belum", "NULL")
+        cursor.execute(sql, val)
         absen(name)
     db.commit()
+
