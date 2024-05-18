@@ -64,7 +64,7 @@ def predicted_image(filename_pred):
 @app.route('/cek-absen')
 def cek_absen():
     cursor = db.cursor()
-    cursor.execute("SELECT * FROM nama_tabel")
+    cursor.execute("SELECT * FROM absen")
     data = cursor.fetchall()
     return render_template('cek-absen.html', data=data)
 
