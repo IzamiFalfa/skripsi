@@ -13,14 +13,16 @@ COPY uploads /app/uploads
 COPY static /app/static
 
 # Instal dlib 
-RUN pip install cmake==3.25
-RUN pip install dlib==19.24.2
-RUN pip install opencv-python
-RUN pip install face_recognition
+# RUN pip install cmake==3.25
+# RUN pip install dlib==19.24.2
+# RUN pip install opencv-python
+# RUN pip install face_recognition
 
 # Instal dependensi lainnya
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Install dependensi yang diperlukan, termasuk dependensi OpenGL
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 
 # Exposed port untuk Flask app
 EXPOSE 8080

@@ -44,7 +44,7 @@ def upload():
     execution_path = target
     print(execution_path)
     image,name = pred(os.path.join(execution_path, filename))
-    absen(name)
+    # absen(name)
     print(image.shape)
     print('predicted')
     predicted_path = os.path.join(APP_ROOT,'uploads/predicted_images')
