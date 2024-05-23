@@ -3,7 +3,6 @@ from flask import Flask, render_template, request, send_from_directory, jsonify,
 from werkzeug.utils import secure_filename
 import cv2
 from deepface_pred import predict as pred
-from check import absen
 import mysql.connector
 
 db = mysql.connector.connect(
@@ -44,7 +43,6 @@ def upload():
     execution_path = target
     print(execution_path)
     image,name = pred(os.path.join(execution_path, filename))
-    # absen(name)
     print(image.shape)
     print('predicted')
     predicted_path = os.path.join(APP_ROOT,'uploads/predicted_images')
@@ -60,13 +58,6 @@ def original_image(filename_ori):
 @app.route('/upload/pred/<filename_pred>')
 def predicted_image(filename_pred):
     return send_from_directory("uploads/predicted_images", filename_pred)
-
-@app.route('/cek-absen')
-def cek_absen():
-    cursor = db.cursor()
-    cursor.execute("SELECT * FROM absen")
-    data = cursor.fetchall()
-    return render_template('cek-absen.html', data=data)
 
 if __name__ == "__main__":
     app.run(debug=True,

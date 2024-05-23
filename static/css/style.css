@@ -1,10 +1,10 @@
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
 }
-
 .container {
     max-width: 600px;
     margin: 50px auto;
@@ -13,62 +13,38 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 h2 {
     text-align: center;
     margin-bottom: 20px;
 }
-
 .upload-files {
     text-align: center;
 }
-
 .upload-file {
     display: none;
 }
-
-.button-style {
+.upload-label {
     background-color: #3498db;
     color: #fff;
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
-    margin: 10px;
-    display: inline-block; /* Ensure buttons are aligned and spaced nicely */
-    transition: background-color 0.3s ease;
-    border: none; /* Remove default button border */
 }
-
-.button-style:hover {
-    background-color: #2980b9;
-}
-
 #msg {
     margin-top: 10px;
     color: #e74c3c;
     font-size: 14px;
 }
-
-#camera-stream, #canvas {
-    width: 100%; /* Responsive video and canvas sizes */
-    max-width: 600px; /* Limit size to container width */
-    border-radius: 4px; /* Consistent rounded corners */
-    margin-top: 20px; /* Spacing from other elements */
-}
-
-#captured-image {
-    max-width: 100%;
-    height: auto;
-}
-
-.capture-container {
-    text-align: center;
+#upload-button {
     margin-top: 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
-
-.capture-container button {
-    margin-top: 10px;
-}
-.centered {
-    text-align: center;
+#upload-button:hover {
+    background-color: #2980b9;
 }
