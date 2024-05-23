@@ -7,9 +7,9 @@ from check import absen
 import mysql.connector
 
 db = mysql.connector.connect(
-    host="localhost",
+    host="34.101.194.74",
     user="root",
-    password="",
+    password="akuskripsi",
     database="skripsi-3"
 )
 

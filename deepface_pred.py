@@ -9,9 +9,9 @@ face_detector = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
 
 # Koneksi ke database
 db = mysql.connector.connect(
-    host="localhost",
+    host="34.101.194.74",
     user="root",
-    password="",
+    password="akuskripsi",
     database="skripsi-3"
 )
 
