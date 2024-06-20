@@ -2,15 +2,7 @@ import os
 from flask import Flask, render_template, request, send_from_directory, jsonify, session, redirect, url_for
 from werkzeug.utils import secure_filename
 import cv2
-from deepface_pred import predict as pred
-import mysql.connector
-
-db = mysql.connector.connect(
-    host="34.101.194.74",
-    user="root",
-    password="akuskripsi",
-    database="skripsi-3"
-)
+from deepface_pred import predict as pred, save_image_to_db
 
 app = Flask(__name__)
 
@@ -27,10 +19,6 @@ def index():
 def upload():
     target = os.path.join(APP_ROOT, 'uploads/images/')
     print(target)
-    if not os.path.isdir(target):
-            os.mkdir(target)
-    else:
-        print("Couldn't create upload directory: {}".format(target))
     print(request.files.getlist("file"))
     for upload in request.files.getlist("file"):
         print(upload)
@@ -43,6 +31,7 @@ def upload():
     execution_path = target
     print(execution_path)
     image,name = pred(os.path.join(execution_path, filename))
+    save_image_to_db(image,name)
     print(image.shape)
     print('predicted')
     predicted_path = os.path.join(APP_ROOT,'uploads/predicted_images')

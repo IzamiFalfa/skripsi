@@ -4,18 +4,10 @@ from deepface import DeepFace
 import mysql.connector
 import numpy as np
 import cv2
+from sql_connector import db,cursor
 
 face_detector = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
 
-# Koneksi ke database
-db = mysql.connector.connect(
-    host="34.101.194.74",
-    user="root",
-    password="akuskripsi",
-    database="skripsi-3"
-)
-
-cursor = db.cursor()
 cursor.execute("SELECT image, name FROM known_faces")
 results = cursor.fetchall()
 
@@ -68,3 +60,16 @@ def predict(img_path):
     
     return image,name
 
+# Fungsi untuk menyimpan gambar ke database
+def save_image_to_db(image, name):
+    # Mengkonversi gambar ke format binary
+    _, encoded_image = cv2.imencode('.jpg', image)
+    binary_image = encoded_image.tobytes()
+
+    # SQL query untuk menyisipkan data
+    sql_query = "INSERT INTO hasil_vgg (name, image) VALUES (%s, %s)"
+    data_tuple = (name, binary_image)
+
+    # Eksekusi query
+    cursor.execute(sql_query, data_tuple)
+    db.commit()
