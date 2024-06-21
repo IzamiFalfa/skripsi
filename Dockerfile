@@ -12,11 +12,14 @@ COPY templates /app/templates
 COPY uploads /app/uploads
 COPY static /app/static
 
-# Instal dlib 
-# RUN pip install cmake==3.25
-# RUN pip install dlib==19.24.2
-# RUN pip install opencv-python
-# RUN pip install face_recognition
+#download weight
+RUN wget https://github.com/serengil/deepface_models/releases/download/v1.0/vgg_face_weights.h5
+
+# Membuat direktori .deepface dan weights
+RUN mkdir -p /root/.deepface/weights
+
+# Memindahkan file ke direktori yang baru dibuat
+RUN mv vgg_face_weights.h5 /root/.deepface/weights/
 
 # Instal dependensi lainnya
 RUN pip install --no-cache-dir -r requirements.txt
