@@ -13,13 +13,13 @@ COPY uploads /app/uploads
 COPY static /app/static
 
 #download weight
-RUN wget https://github.com/serengil/deepface_models/releases/download/v1.0/vgg_face_weights.h5
+RUN wget https://github.com/serengil/deepface_models/releases/download/v1.0/arcface_weights.h5
 
 # Membuat direktori .deepface dan weights
 RUN mkdir -p /root/.deepface/weights
 
 # Memindahkan file ke direktori yang baru dibuat
-RUN mv vgg_face_weights.h5 /root/.deepface/weights/
+RUN mv arcface_weights.h5 /root/.deepface/weights/
 
 # Instal dependensi lainnya
 RUN pip install --no-cache-dir -r requirements.txt

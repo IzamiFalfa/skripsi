@@ -27,7 +27,7 @@ def predict(img_path):
     # Mengubah gambar menjadi grayscale
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     face_location = face_detector.detectMultiScale(gray, 1.1, 4)
-    models = ["VGG-Face"]  # Hanya menggunakan model VGG-Face
+    models = ["ArcFace"]  # Hanya menggunakan model VGG-Face
     name = "Unknonwn"
     matches = []
     face_names = []
@@ -67,7 +67,7 @@ def save_image_to_db(image, name):
     binary_image = encoded_image.tobytes()
 
     # SQL query untuk menyisipkan data
-    sql_query = "INSERT INTO hasil_vgg (name, image) VALUES (%s, %s)"
+    sql_query = "INSERT INTO hasil_arcface (name, image) VALUES (%s, %s)"
     data_tuple = (name, binary_image)
 
     # Eksekusi query
