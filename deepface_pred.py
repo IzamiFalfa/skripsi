@@ -67,7 +67,7 @@ def save_image_to_db(image, name):
     binary_image = encoded_image.tobytes()
 
     # SQL query untuk menyisipkan data
-    sql_query = "INSERT INTO hasil_vgg (name, image) VALUES (%s, %s)"
+    sql_query = "INSERT INTO hasil_dlib (name, image) VALUES (%s, %s)"
     data_tuple = (name, binary_image)
 
     # Eksekusi query
