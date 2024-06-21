@@ -18,25 +18,16 @@ def index():
 @app.route("/upload", methods=["POST"])
 def upload():
     target = os.path.join(APP_ROOT, 'uploads/images/')
-    print(target)
     print(request.files.getlist("file"))
     for upload in request.files.getlist("file"):
-        print(upload)
-        print("{} is the file name".format(upload.filename))
         filename = upload.filename
         destination = "/".join([target, filename])
-        print("Accept incoming file:", filename)
-        print("Save it to:", destination)
         upload.save(destination)
     execution_path = target
-    print(execution_path)
     image,name = pred(os.path.join(execution_path, filename))
     save_image_to_db(image,name)
-    print(image.shape)
-    print('predicted')
     predicted_path = os.path.join(APP_ROOT,'uploads/predicted_images')
     predicted_image = cv2.imwrite(os.path.join(predicted_path,  "flask"+filename), image)
-    print('wrote out the image')
     print('flask'+filename)
     return render_template("result.html", original_image_name=filename ,predicted_image_name="flask"+filename)
 
