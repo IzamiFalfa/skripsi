@@ -27,7 +27,7 @@ def predict(img_path):
     # Mengubah gambar menjadi grayscale
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     face_location = face_detector.detectMultiScale(gray, 1.1, 4)
-    models = ["VGG-Face"]  # Hanya menggunakan model VGG-Face
+    models = ["Dlib"]  # Hanya menggunakan model VGG-Face
     name = "Unknonwn"
     matches = []
     face_names = []
