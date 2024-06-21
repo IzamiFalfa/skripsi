@@ -23,6 +23,10 @@ RUN mkdir -p /root/.deepface/weights
 # Memindahkan file ke direktori yang baru dibuat
 RUN mv dlib_face_recognition_resnet_model_v1.dat /root/.deepface/weights/
 
+# Instal dlib 
+RUN pip install cmake==3.25
+RUN pip install dlib==19.24.2
+
 # Instal dependensi lainnya
 RUN pip install --no-cache-dir -r requirements.txt
 
