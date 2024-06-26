@@ -1,7 +1,6 @@
 import os
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 from deepface import DeepFace
-import mysql.connector
 import numpy as np
 import cv2
 from sql_connector import db,cursor
