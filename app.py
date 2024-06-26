@@ -1,6 +1,5 @@
 import os
-from flask import Flask, render_template, request, send_from_directory, jsonify, session, redirect, url_for
-from werkzeug.utils import secure_filename
+from flask import Flask, render_template, request, send_from_directory, session
 import cv2
 from deepface_pred import predict as pred, save_image_to_db
 
